@@ -1,9 +1,5 @@
 {
     "rotating_proxy": "",
-	"names": {
-		"random": false,
-		"set": "acier1"
-	},
-	"threads": 100,
-	"invite": "fUnsjq4bCA"
+    "threads": 100,
+    "invite": "fUnsjq4bCA"
 }
