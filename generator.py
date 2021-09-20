@@ -235,6 +235,7 @@ def register(serverinv=None):
                     "date_of_birth": "1991-04-06",
                     "gift_code_sku_id": "",
                     "captcha_key": captchakey,
+		    "invite": config['invite']
                     }
     else:
         payload = {"fingerprint": fingerprint,
@@ -244,7 +245,7 @@ def register(serverinv=None):
                     "consent": "true",
                     "date_of_birth": "1991-04-06",
                     "gift_code_sku_id": "",
-                    "captcha_key": captchakey,
+                    "captcha_key": captchakey
                     }
 
     try:
