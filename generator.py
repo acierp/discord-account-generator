@@ -49,11 +49,11 @@ def setProfile(token):
   data = {
     "avatar": f'data:image/png;base64,{newstr}'
   }
-  changeprofile = httpx.patch('https://discord.com/api/v8/users/@me', headers=headers, json=data, proxies={"https://": f"http://acier:acieriscool@proxy.iproyal.com:12323"})
+  changeprofile = httpx.patch('https://discord.com/api/v8/users/@me', headers=headers, json=data, proxies={'https://':config['rotating_proxy']})
   print(changeprofile.text)
 
 def checkCompleted(tzid):
-    checknew =  httpx.get('https://onlinesim.ru/api/getState.php?apikey=7e2fb983877931b56ef3180b0f0ed04d')
+    checknew =  httpx.get('https://onlinesim.ru/api/getState.php?apikey=' + config['onlinesim_key'])
     for check in checknew.json():
         if str(check['tzid']) == str(tzid):
             if check['response'] == 'TZ_NUM_ANSWER':
@@ -66,9 +66,9 @@ def checkCompleted(tzid):
 
 
 def verifyPhone(token, password):
-    createRequest = httpx.get('https://onlinesim.ru/api/getNum.php?apikey=7e2fb983877931b56ef3180b0f0ed04d&service=discord')
+    createRequest = httpx.get('https://onlinesim.ru/api/getNum.php?apikey=' + config['onlinesim_key'] + '&service=discord')
     if createRequest.status_code == 200:
-        getNumber = httpx.get('https://onlinesim.ru/api/getState.php?apikey=7e2fb983877931b56ef3180b0f0ed04d')
+        getNumber = httpx.get('https://onlinesim.ru/api/getState.php?apikey=' + config['onlinesim_key'] + '7e2fb983877931b56ef3180b0f0ed04d')
         for val in getNumber.json():
             if str(createRequest.json()['tzid']) == str(val['tzid']):
                 headers = {
@@ -86,12 +86,12 @@ def verifyPhone(token, password):
                 data = {
                     'phone': val['number']
                 }
-                sendCode = httpx.post('https://discord.com/api/v9/users/@me/phone', headers=headers, json=data, proxies={"https://": f"http://acier:acieriscool@proxy.iproyal.com:12323"}, timeout=10)
+                sendCode = httpx.post('https://discord.com/api/v9/users/@me/phone', headers=headers, json=data, proxies={"https://": config['rotating_proxy']}, timeout=10)
                 if sendCode.status_code == 400:
                     print(sendCode.text)
                     return "Invalid phone"
                 elif sendCode.status_code == 200 or sendCode.status_code == 204:
-                    getResponses = httpx.get('https://onlinesim.ru/api/getState.php?apikey=7e2fb983877931b56ef3180b0f0ed04d')
+                    getResponses = httpx.get('https://onlinesim.ru/api/getState.php?apikey=' + config['onlinesim_key'])
                     for splitval in getResponses.json():
                         if str(splitval['tzid']) == str(val['tzid']):
                             print(f'Waiting for phone response from ' + val['number'])
@@ -101,13 +101,13 @@ def verifyPhone(token, password):
                         'code': responsedata,
                         'phone': val['number']
                     }
-                    submitCode = httpx.post('https://discord.com/api/v9/phone-verifications/verify', json=data, headers=headers, proxies={"https://": f"http://acier:acieriscool@proxy.iproyal.com:12323"}, timeout=10)
+                    submitCode = httpx.post('https://discord.com/api/v9/phone-verifications/verify', json=data, headers=headers, proxies={"https://": config['rotating_proxy']}, timeout=10)
                     if submitCode.status_code == 200:
                         data = {
                             'password': password,
                             'phone_token': submitCode.json()['token']
                         }
-                        passwordCheck = httpx.post('https://discord.com/api/v9/users/@me/phone', json=data, headers=headers, proxies={"https://": f"http://acier:acieriscool@proxy.iproyal.com:12323"}, timeout=10)
+                        passwordCheck = httpx.post('https://discord.com/api/v9/users/@me/phone', json=data, headers=headers, proxies={"https://": config['rotating_proxy']}, timeout=10)
                         if passwordCheck.status_code == 200 or passwordCheck.status_code == 204:
                             print(f'Successfully phone verified {token}')
                             with open('verifiedtokens.txt','a', encoding='utf-8') as f:
@@ -173,7 +173,7 @@ def register(serverinv=None):
         "Accept-Encoding": "gzip, deflate, br"
     }
 
-    fingerprintres = httpx.get("https://discord.com/api/v9/experiments", proxies={"https://": f"http://acier:acieriscool@proxy.iproyal.com:12323"}, timeout=10)
+    fingerprintres = httpx.get("https://discord.com/api/v9/experiments", proxies={"https://": config['rotating_proxy']}, timeout=10)
 
     while True:
         if fingerprintres.text != "":
@@ -192,7 +192,7 @@ def register(serverinv=None):
 
     while True:
         try:
-            captchakey = bypass(sitekey, "discord.com", proxy='acier:acieriscool@proxy.iproyal.com:12323')
+            captchakey = bypass(sitekey, "discord.com", proxy=config['rotating_proxy'])
             if captchakey == "False":
                 continue
             else:
@@ -249,7 +249,7 @@ def register(serverinv=None):
 
     try:
         registerreq = httpx.post("https://discord.com/api/v9/auth/register", headers=header3,
-                            json=payload, proxies={"https://": f"http://acier:acieriscool@proxy.iproyal.com:12323"}, timeout=10)
+                            json=payload, proxies={"https://": config['rotating_proxy']}, timeout=10)
 
         token = registerreq.json()['token']
         with open('tokens.txt','a', encoding='utf-8') as f:
