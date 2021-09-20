@@ -23,9 +23,6 @@ with open('usernames.txt','r+', encoding='utf-8') as usernamefile:
 with open('config.json', 'r+', encoding='utf-8') as configfile:
     config = json.load(configfile)
 
-with open('proxies.txt','r+', encoding='utf-8') as proxyfile:
-    ProxyPool = cycle(proxyfile.read().splitlines())
-
 for login in logins:
     loginchecks.append(login)
 
