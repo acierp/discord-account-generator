@@ -8,6 +8,6 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
     "rotating_proxy": "your proxy",
     "threads": 100,
     "invite": "your discord invite",
-    "onlinesim_key": "leave blank"
+    "onlinesim_key": "leave blank for now"
 }
 ```
