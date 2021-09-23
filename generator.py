@@ -46,7 +46,7 @@ def setProfile(token):
   data = {
     "avatar": f'data:image/png;base64,{newstr}'
   }
-  changeprofile = httpx.patch('https://discord.com/api/v8/users/@me', headers=headers, json=data, proxies={'https://':config['rotating_proxy']})
+  changeprofile = httpx.patch('https://discord.com/api/v8/users/@me', headers=headers, json=data, proxies={'http://':config['rotating_proxy']})
   print(changeprofile.text)
 
 def checkCompleted(tzid):
@@ -60,60 +60,6 @@ def checkCompleted(tzid):
             else:
                 time.sleep(2)
                 return checkCompleted(tzid)
-
-
-def verifyPhone(token, password):
-    createRequest = httpx.get('https://onlinesim.ru/api/getNum.php?apikey=' + config['onlinesim_key'] + '&service=discord')
-    if createRequest.status_code == 200:
-        getNumber = httpx.get('https://onlinesim.ru/api/getState.php?apikey=' + config['onlinesim_key'] + '7e2fb983877931b56ef3180b0f0ed04d')
-        for val in getNumber.json():
-            if str(createRequest.json()['tzid']) == str(val['tzid']):
-                headers = {
-                    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36",
-                    "authorization": token,
-                    'Accept': 'application/json',
-                    'Referer': 'https://discord.com/channels/@me',
-                    'X-Super-Properties': '',
-                    'accept-language': 'en-US',
-                    'origin': 'https://discord.com',
-                    'sec-fetch-site': 'same-origin',
-                    'sec-fetch-mode': 'cors',
-                    'sec-fetch-dest': 'empty'
-                }
-                data = {
-                    'phone': val['number']
-                }
-                sendCode = httpx.post('https://discord.com/api/v9/users/@me/phone', headers=headers, json=data, proxies={"https://": config['rotating_proxy']}, timeout=10)
-                if sendCode.status_code == 400:
-                    print(sendCode.text)
-                    return "Invalid phone"
-                elif sendCode.status_code == 200 or sendCode.status_code == 204:
-                    getResponses = httpx.get('https://onlinesim.ru/api/getState.php?apikey=' + config['onlinesim_key'])
-                    for splitval in getResponses.json():
-                        if str(splitval['tzid']) == str(val['tzid']):
-                            print(f'Waiting for phone response from ' + val['number'])
-                            responsedata = checkCompleted(splitval['tzid'])
-                    
-                    data = {
-                        'code': responsedata,
-                        'phone': val['number']
-                    }
-                    submitCode = httpx.post('https://discord.com/api/v9/phone-verifications/verify', json=data, headers=headers, proxies={"https://": config['rotating_proxy']}, timeout=10)
-                    if submitCode.status_code == 200:
-                        data = {
-                            'password': password,
-                            'phone_token': submitCode.json()['token']
-                        }
-                        passwordCheck = httpx.post('https://discord.com/api/v9/users/@me/phone', json=data, headers=headers, proxies={"https://": config['rotating_proxy']}, timeout=10)
-                        if passwordCheck.status_code == 200 or passwordCheck.status_code == 204:
-                            print(f'Successfully phone verified {token}')
-                            with open('verifiedtokens.txt','a', encoding='utf-8') as f:
-                                f.write(f'{token}\n')
-
-                else:
-                    print(sendCode.text)
-    else:
-        print(createRequest.text)
 
 def register(serverinv=None):
     username = random_char(10)
@@ -170,7 +116,7 @@ def register(serverinv=None):
         "Accept-Encoding": "gzip, deflate, br"
     }
 
-    fingerprintres = httpx.get("https://discord.com/api/v9/experiments", proxies={"https://": config['rotating_proxy']}, timeout=10)
+    fingerprintres = httpx.get("https://discord.com/api/v9/experiments", proxies={"http://": config['rotating_proxy']}, timeout=10)
 
     while True:
         if fingerprintres.text != "":
@@ -247,7 +193,7 @@ def register(serverinv=None):
 
     try:
         registerreq = httpx.post("https://discord.com/api/v9/auth/register", headers=header3,
-                            json=payload, proxies={"https://": config['rotating_proxy']}, timeout=10)
+                            json=payload, proxies={"http://": config['rotating_proxy']}, timeout=10)
 
         token = registerreq.json()['token']
         with open('tokens.txt','a', encoding='utf-8') as f:
@@ -255,7 +201,6 @@ def register(serverinv=None):
         with open('tokensp.txt','a', encoding='utf-8') as f:
             f.write(f'{token}:{password}\n')
         print(f"Successfully generated account name {token}")
-        verifyPhone(token, password)
     except:
         pass
     
