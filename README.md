@@ -21,9 +21,18 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
         "static": {
             "enabled": false,
             "name": "acier",
+         },
         "random": {
             "enabled": true,
          }
-    }
+    },
+    "verification": {
+        "phone": {
+            "enabled": false,
+            "onlinesim_token": "",
+        },
+        "email": {
+            "enabled": true
+        }
 }
 ```
