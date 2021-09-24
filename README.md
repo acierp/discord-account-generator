@@ -3,7 +3,7 @@
 [![python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/downloads/)
 
 # Discord Account Generator
-An hcaptcha-solving discord account generator; capable of randomizing **names**, **profile pictures**, and ~~**verifying phone numbers**~~.
+An hcaptcha-solving discord account generator; capable of generating unlocked discord accounts.
 
 ## Usage
 
