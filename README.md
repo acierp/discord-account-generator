@@ -19,8 +19,8 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
     "invite": "invite",
     "names": {
         "static": {
-            "enabled": false
-            "name": "acier"
+            "enabled": false,
+            "name": "acier",
         "random": {
             "enabled": true,
          }
