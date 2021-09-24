@@ -13,23 +13,22 @@ $ pip install -r requirements.txt
 In order to use dware, you need both rotating http proxies [iproyal reccomended](https://dashboard.iproyal.com/products/royal-residential-proxies) for evading discord's automated bot detection and an [onlinesim](https://onlinesim.io/) account, loaded with at least $2 in credits for verifying phone numbers. You can add these to your bot config by editing the config.json file with the following
 
 ```json
-
 {
     "threads": 100,
     "invite": "discord invite code",
     "names": {
         "static": {
             "enabled": false,
-            "name": "acier",
+            "name": "acier"
          },
         "random": {
-            "enabled": true,
+            "enabled": true
          }
     },
     "verification": {
         "phone": {
             "enabled": false,
-            "onlinesim_token": "your onlinesim.io token",
+            "onlinesim_token": "your onlinesim.io token"
         },
         "email": {
             "enabled": true
