@@ -5,6 +5,8 @@
 # CURRENTLY PATCHED AND WILL BE REWRITTEN
 An hcaptcha-solving discord account generator; capable of generating unlocked discord accounts.
 
+**MADE SOLELY FOR EDUCATIONAL PERSONAL PURPOSES**
+
 ## Usage
 
 ```bash
