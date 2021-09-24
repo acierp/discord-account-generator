@@ -17,7 +17,6 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
 {
     "rotating_proxy": "Your proxy.",
     "threads": 100,
-    "invite": "Your Discord invite.",
-    "onlinesim_key": "Leave blank for now."
+    "invite": "Your Discord invite"
 }
 ```
