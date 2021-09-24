@@ -49,18 +49,6 @@ def setProfile(token):
   changeprofile = httpx.patch('https://discord.com/api/v8/users/@me', headers=headers, json=data, proxies={'http://':config['rotating_proxy']})
   print(changeprofile.text)
 
-def checkCompleted(tzid):
-    checknew =  httpx.get('https://onlinesim.ru/api/getState.php?apikey=' + config['onlinesim_key'])
-    for check in checknew.json():
-        if str(check['tzid']) == str(tzid):
-            if check['response'] == 'TZ_NUM_ANSWER':
-                responseme = check['msg']
-                print(f'Successfully got SMS response {responseme}')
-                return check['msg']
-            else:
-                time.sleep(2)
-                return checkCompleted(tzid)
-
 def register(serverinv=None):
     username = random_char(10)
     email = random_char(10) + "@gmail.com"
