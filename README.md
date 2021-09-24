@@ -16,7 +16,7 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
 
 {
     "threads": 100,
-    "invite": "invite",
+    "invite": "discord invite code",
     "names": {
         "static": {
             "enabled": false,
@@ -29,10 +29,11 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
     "verification": {
         "phone": {
             "enabled": false,
-            "onlinesim_token": "",
+            "onlinesim_token": "your onlinesim.io token",
         },
         "email": {
             "enabled": true
         }
+    }
 }
 ```
