@@ -15,8 +15,15 @@ In order to use dware, you need both rotating http proxies [iproyal reccomended]
 ```json
 
 {
-    "rotating_proxy": "Your proxy.",
     "threads": 100,
-    "invite": "Your Discord invite"
+    "invite": "invite",
+    "names": {
+        "static": {
+            "enabled": false
+            "name": "acier"
+        "random": {
+            "enabled": true,
+         }
+    }
 }
 ```
