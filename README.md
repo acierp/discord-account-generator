@@ -1,4 +1,3 @@
-
 # Currently patched and discontinued
 **Patched due to discord automatically locking account tokens** 
 
