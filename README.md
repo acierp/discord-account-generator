@@ -17,25 +17,6 @@ $ pip install -r requirements.txt
 ## Config
 ```json
 {
-    "threads": 100,
-    "invite": "discord invite code",
-    "names": {
-        "static": {
-            "enabled": false,
-            "name": "acier"
-         },
-        "random": {
-            "enabled": true
-         }
-    },
-    "verification": {
-        "phone": {
-            "enabled": false,
-            "onlinesim_token": "your onlinesim.io token"
-        },
-        "email": {
-            "enabled": true
-        }
-    }
+    "invite": ""
 }
 ```
